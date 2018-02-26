@@ -11,9 +11,9 @@ import os
 
 SIZE = 42
 SHOW_GENERATIONS = False
-THRESHOLD = (SIZE * 10) / 5
-MAX = (SIZE * 20) / 2
-CLOCK = 0.33
+THRESHOLD = 15
+MAX = (SIZE * 10)
+CLOCK = 0.5
 
 
 if SHOW_GENERATIONS:
@@ -21,7 +21,7 @@ if SHOW_GENERATIONS:
     LIVE = '###'
 else:
     DEAD = ' '
-    LIVE = '#'
+    LIVE = '@'
     
 
 def generate_row(size):
@@ -46,9 +46,9 @@ def generate_board(size, seed=False):
         for y in range(size):
             for x in range(size):
                 if how_many < MAX:
-                    randy = randint(0, size * 10)
+                    randy = randint(0, 100)
                     if randy < THRESHOLD:
-                        board[y][x] = LIVE
+                        board[x][y] = LIVE
                         how_many = how_many + 1
     return board
 
