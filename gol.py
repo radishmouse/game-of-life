@@ -1,4 +1,3 @@
-from pprint import pprint
 from time import sleep
 from random import randint
 import json
@@ -14,7 +13,7 @@ SIZE = 42
 SHOW_GENERATIONS = False
 THRESHOLD = (SIZE * 10) / 5
 MAX = (SIZE * 20) / 2
-CLOCK = 0.05
+CLOCK = 0.33
 
 
 if SHOW_GENERATIONS:
@@ -26,16 +25,11 @@ else:
     
 
 def generate_row(size):
-    row = []
-    for i in range(size):
-        row.append(DEAD)
-    return row
+    return [DEAD for i in range(size)]
 
 def generate_board(size, seed=False):
-    board = []
-    for i in range(size):
-        board.append(generate_row(size))
-
+    board = [generate_row(size) for i in range(size)]
+        
     # seed a glider
     # if seed:
     if False:
@@ -87,14 +81,10 @@ def neighbors(cells, y, x):
     return neighbor_cells
 
 def is_live(cell):
-    return cell is not DEAD
+    return cell is LIVE
 
 def live_neighbors(cells, y, x):
-    lives = 0
-    for c in neighbors(cells, y, x):
-        if is_live(c):
-            lives = lives + 1
-    return lives
+    return sum(1 for c in neighbors(cells, y, x) if is_live(c))
 
 def has_under_population(live_neighbor_count):
     # if fewer than 2 live neighbors
